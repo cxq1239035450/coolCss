@@ -1,0 +1,19 @@
+{
+  "name": "coolcss",
+  "version": "1.0.0",
+  "description": "玩css的一个项目",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cxq1239035450/coolCss.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cxq1239035450/coolCss/issues"
+  },
+  "homepage": "https://github.com/cxq1239035450/coolCss#readme"
+}
