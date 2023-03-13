@@ -3,8 +3,7 @@
 </template>
 
 <script setup lang="ts">
-function helloWorld() {
-    console.log(`Hello World, my name is`);
-}
+let a = 0;
 </script>
+
 <style scoped></style>
