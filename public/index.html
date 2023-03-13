@@ -7,7 +7,7 @@
     <title>❤</title>
 </head>
 <body>
-    <audio id="audio" src="./audio/music1.mp3" controls></audio>
+    <audio id="audio" src="../src/audio/music1.mp3" controls></audio>
     <canvas id="canvas" style="width:500px;height:500px"></canvas>
 </body>
 <script type="text/javascript">
@@ -28,8 +28,8 @@
         const source = audCtx.createMediaElementSource(audio)
         // 分析器节点
         analyser = audCtx.createAnalyser()
-    
-        // 处理分析器节点的数据 
+
+        // 处理分析器节点的数据
         analyser.fftSize = 512
         dataArray = new Uint8Array(512/2)
 
@@ -41,7 +41,7 @@
         draw()
     }
 
-    // 
+    //
     function draw(){
         requestAnimationFrame(draw)
         if(!isInit)return

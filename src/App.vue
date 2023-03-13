@@ -1,9 +1,9 @@
 <template>
-    <div></div>
+  <MyAudio />
 </template>
 
 <script setup lang="ts">
-let a = 0;
+import MyAudio from "@/components/MyAudio.vue";
 </script>
 
 <style scoped></style>
