@@ -1,5 +1,8 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from "vue";
+import "./style.css";
+import App from "./App.vue";
+import "./sass/theme.scss";
 
-createApp(App).mount('#app')
+window.document.documentElement.setAttribute("data-theme", "light");
+
+createApp(App).mount("#app");
