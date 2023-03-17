@@ -1,13 +1,13 @@
 <template>
   <div class="app">
     <Light />
-    <!-- <MyAudio /> -->
+    <MyAudio />
   </div>
 </template>
 
 <script setup lang="ts">
-import Light from "@/components/Light";
-import MyAudio from "@/components/MyAudio";
+import Light from "@/components/Light/index.vue";
+import MyAudio from "@/components/MyAudio/index.vue";
 </script>
 
 <style lang="scss">
