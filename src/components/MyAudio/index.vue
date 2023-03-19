@@ -1,18 +1,21 @@
 <template>
-    <audio :src="localUrl" controls></audio>
+    <audio @loadeddata="audioLoadeddata" :src="localUrl" controls></audio>
     <div class="page">
       <canvas style="width:100%;height:80%"></canvas>
       <div class="audioBox">
-        <span>&gt;</span>
-        <span>&gt;</span>
-        <span>&gt;</span>
+        <span v-if="!audioData.playing" class="iconfont  icon-bofang" @click="play()"></span>
+        <span v-else class="iconfont  icon-zanting" @click="pause()"></span>
+        <span class="iconfont  icon-shangyiji"></span>
+        <span class="iconfont  icon-xiayiji"></span>
+        <span class="iconfont  icon-yinliang"></span>
+        <span class="iconfont  icon-jingyin"></span>
       </div>
     </div>
 </template>
 
 <script  setup lang="ts">
 import { getFileURL } from "@/general/fileDispose";
-import { ref,computed } from 'vue'
+import { ref,reactive,computed } from 'vue'
 const props = withDefaults(defineProps<{
     // 存放音乐列表
     list:string[],
@@ -30,6 +33,25 @@ const localUrl = computed(():string=>{
 
     return getFileURL(props.list[index])
 })
+
+let audio: HTMLAudioElement | null = null
+const audioData = reactive({
+  audiourl: localUrl,
+  playing: false,
+  duration: 0, // 音频总时长
+  currentTime: 0, // 当前播放的位置
+});
+const audioLoadeddata = (event:any):void => {
+  audio = event.target
+}
+const play = () => {
+  audio?.play()
+  audioData.playing = true
+}
+const pause = () => {
+  audio?.pause()
+  audioData.playing = false
+}
 
 </script>
 
