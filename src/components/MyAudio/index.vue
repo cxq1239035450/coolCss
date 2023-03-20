@@ -1,7 +1,7 @@
 <template>
     <audio @loadeddata="audioLoadeddata" :src="localUrl" controls></audio>
     <div class="page">
-      <canvas style="width:100%;height:80%"></canvas>
+      <canvas id="canvas" style="width:100%;height:80%"></canvas>
       <div class="audioBox">
         <span v-if="!audioData.playing" class="iconfont  icon-bofang" @click="play()"></span>
         <span v-else class="iconfont  icon-zanting" @click="pause()"></span>
@@ -16,6 +16,7 @@
 <script  setup lang="ts">
 import { getFileURL } from "@/general/fileDispose";
 import { ref,reactive,computed } from 'vue'
+import { AudioContext } from '@/general/music'
 const props = withDefaults(defineProps<{
     // 存放音乐列表
     list:string[],
@@ -33,6 +34,7 @@ const localUrl = computed(():string=>{
 
     return getFileURL(props.list[index])
 })
+const music = new AudioContext()
 
 let audio: HTMLAudioElement | null = null
 const audioData = reactive({
