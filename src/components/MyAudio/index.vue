@@ -1,81 +1,53 @@
 <template>
-    <audio @loadeddata="audioLoadeddata" :src="localUrl" controls></audio>
-    <div class="page">
-        <canvas id="canvas" style="width: 100%; height: 80%"></canvas>
-        <div class="audioBox">
-            <span
-                v-if="!audioData.playing"
-                class="iconfont icon-bofang"
-                @click="play()"
-            ></span>
-            <span v-else class="iconfont icon-zanting" @click="pause()"></span>
-            <span class="iconfont icon-shangyiji"></span>
-            <span class="iconfont icon-xiayiji"></span>
-            <span class="iconfont icon-yinliang"></span>
-            <span class="iconfont icon-jingyin"></span>
-        </div>
+  <div class="page">
+    <canvas id="canvas" style="width: 100%; height: 80%"></canvas>
+    <div class="audioBox">
+      <span v-if="!is_play" class="iconfont icon-bofang" @click="play()"></span>
+      <span v-else class="iconfont icon-zanting" @click="pause()"></span>
+      <span class="iconfont icon-shangyiji"></span>
+      <span class="iconfont icon-xiayiji"></span>
+      <span class="iconfont icon-yinliang"></span>
+      <span class="iconfont icon-jingyin"></span>
     </div>
+  </div>
 </template>
 
 <script  setup lang="ts">
 import { getFileURL } from '@/general/fileDispose'
 import { ref, reactive, computed } from 'vue'
-import { music } from '@/general/music'
+import { musicObj } from '@/general/music'
 const props = withDefaults(
-    defineProps<{
-        // 存放音乐列表
-        list: string[]
-        // 是否播放
-        IS_PLAY: boolean
-    }>(),
-    {
-        list: () => ['audio/music1.mp3'],
-        IS_PLAY: false,
-    }
+  defineProps<{
+    // 存放音乐列表
+    list: string[]
+  }>(),
+  {
+    list: () => ['audio/music1.mp3'],
+  }
 )
-let PLAY_INDEX = ref<number>(0)
-const localUrl = computed((): string => {
-    const index: number = PLAY_INDEX.value
-
-    return getFileURL(props.list[index])
-})
-
-let audio: HTMLAudioElement | null = null
-
-const audioData = reactive({
-    audioContent: null,
-    audiourl: localUrl,
-    playing: false,
-    duration: 0, // 音频总时长
-    currentTime: 0, // 当前播放的位置
-})
-const audioLoadeddata = (event: any): void => {
-    audio = event.target
-}
+const audioObj = reactive(new musicObj(getFileURL(props.list[0])))
 const play = () => {
-    audio?.play()
-    audioData.audioContent = new music(audio)
-    const canvas = document.getElementById('canvas')
-    const ctx = canvas.getContext('2d')
-    audioData.audioContent.draw(canvas, ctx)
-    audioData.playing = true
+  audioObj.play()
 }
 const pause = () => {
-    audio?.pause()
-    audioData.playing = false
+  audioObj.pause()
 }
+const is_play = computed((): Boolean => {
+  return audioObj.is_play || false
+})
 </script>
 
 <style scoped lang="scss">
 .page {
-    box-sizing: border-box;
-    width: 300px;
-    height: 400px;
-    border: 1px solid black;
-    padding: 20px;
-    .audioBox {
-        border: 1px solid black;
-        border-radius: 20px;
-    }
+  box-sizing: border-box;
+  width: 300px;
+  height: 400px;
+  border: 1px solid var(--primary-border-color);
+  color: var(--primary-color);
+  padding: 20px;
+  .audioBox {
+    border: 1px solid var(--primary-border-color);
+    border-radius: 20px;
+  }
 }
 </style>

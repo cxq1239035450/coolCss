@@ -1,22 +1,30 @@
 <template>
   <div class="fixed">
     <transition name="fade" mode="out-in">
-      <span class="cursor" v-if="IS_LIGHT" @click="c">☀</span>
-      <span class="cursor" v-else @click="c">🌙</span>
+      <span
+        class="cursor iconfont icon-taiyang"
+        v-if="IS_LIGHT"
+        @click="changeSty"
+      ></span>
+      <span
+        class="cursor iconfont icon-yueliang"
+        v-else
+        @click="changeSty"
+      ></span>
     </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
+import { ref } from '@vue/reactivity'
 
-const IS_LIGHT = ref<Boolean>(true);
-const c = (): void => {
-  let stateName = "";
-  IS_LIGHT.value ? (stateName = "dark") : (stateName = "light");
-  IS_LIGHT.value = !IS_LIGHT.value;
-  window.document.documentElement.setAttribute("data-theme", stateName);
-};
+const IS_LIGHT = ref<Boolean>(true)
+const changeSty = (): void => {
+  let stateName = ''
+  IS_LIGHT.value ? (stateName = 'dark') : (stateName = 'light')
+  IS_LIGHT.value = !IS_LIGHT.value
+  window.document.documentElement.setAttribute('data-theme', stateName)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -34,7 +42,8 @@ const c = (): void => {
   opacity: 0;
   transform: translateX(-80px);
 }
-.fade-enter-to,.fade-leave-from {
+.fade-enter-to,
+.fade-leave-from {
   opacity: 1;
 }
 .fade-leave-to {
