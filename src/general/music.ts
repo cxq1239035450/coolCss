@@ -1,23 +1,25 @@
-export class musicObj {
+export  class musicObj implements musicType {
     private audio: HTMLAudioElement
-    private canvas: HTMLCanvasElement
-    private ctx: CanvasRenderingContext2D
+    public canvas: HTMLCanvasElement | null
+    private ctx: CanvasRenderingContext2D|null
     private analyser: AnalyserNode | null
     private bufferLength: number
     private dataArray: Uint8Array
     private audioContext: AudioContext | null
     public is_play: boolean
 
-    constructor(source: string) {
+    constructor(source: string,canvasDom: HTMLCanvasElement) {
         this.audio = new Audio(source)
+        this.canvas = canvasDom
+        this.ctx = canvasDom.getContext('2d')
         this.is_play = false
-        this.canvas = document.createElement('canvas')
-        this.ctx = this.canvas.getContext('2d')!
-        document.body.appendChild(this.canvas)
         this.analyser = null
         this.bufferLength = 0
         this.dataArray = new Uint8Array()
         this.audioContext = null
+
+
+
     }
 
     private createAudioContext(): AudioContext | null {
@@ -77,22 +79,20 @@ export class musicObj {
 
     public async draw(): Promise<void> {
         await new Promise(resolve => requestAnimationFrame(resolve))
-        console.log(
-            111,
-            this.audio.paused || this.audio.ended || !this.analyser
-        )
+        console.log(this.audio.paused);
 
         // 检查音乐是否已经播放，否则不进行绘制
-        if (this.audio.paused || this.audio.ended || !this.analyser) {
+        if (this.audio.paused || this.audio.ended || !this.analyser|| !this.ctx || !this.canvas) {
             return Promise.resolve()
         }
+
 
         // 获取音频数据
         this.analyser.getByteTimeDomainData(this.dataArray)
 
         // 清空画布
-        const canvasWidth = this.canvas.width
-        const canvasHeight = this.canvas.height
+        const canvasWidth = this.canvas.offsetWidth
+        const canvasHeight = this.canvas.offsetHeight
         this.ctx.clearRect(0, 0, canvasWidth, canvasHeight)
 
         // 根据音频数据绘制可视化效果
@@ -106,12 +106,13 @@ export class musicObj {
             const y = canvasHeight - barHeight
             this.ctx.fillRect(x, y, barWidth, barHeight)
         }
-
         return this.draw()
     }
     play(): void {
         this.audio.play()
-        this.initContext()
+        if(!this.audioContext||!this.analyser){
+          this.initContext()
+        }
         this.draw()
         this.is_play = true
     }
@@ -126,4 +127,11 @@ export class musicObj {
         this.audio.currentTime = 0
     }
     // 省略其他方法
+}
+export  interface musicType{
+  canvas: HTMLCanvasElement | null
+  is_play: boolean
+  play:Function
+  pause:Function
+  stop:Function
 }
