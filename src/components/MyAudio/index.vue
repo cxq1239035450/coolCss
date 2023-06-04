@@ -14,7 +14,7 @@
 
 <script  setup lang="ts">
 import { getFileURL } from '@/general/fileDispose'
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, toRef,watchEffect } from 'vue'
 import { musicObj, musicType } from '@/general/music'
 const props = withDefaults(
   defineProps<{
@@ -27,21 +27,21 @@ const props = withDefaults(
 )
 const canvasDom  = ref<HTMLCanvasElement>(null!)
 
-const audioObj = computed(():musicType=>{
-  if(canvasDom.value){
-    return  new musicObj(getFileURL(props.list[0]),canvasDom.value)
-  } else {
-    return  new musicObj(getFileURL(props.list[0]),document.createElement('canvas'))
-  }
-})
+const audioObj = ref<musicType>(null!);
+watchEffect(() => {
+  audioObj.value = new musicObj(
+    getFileURL(props.list[0]),
+    canvasDom.value || document.createElement('canvas')
+  );
+});
 
-const playBtn = () => {
+const playBtn = ():void => {
   audioObj.value.play()
 }
-const pauseBtn = () => {
+const pauseBtn = ():void  => {
   audioObj.value.pause()
 }
-const preBtn = () => {
+const preBtn = ():void  => {
   console.log(12321);
 }
 
@@ -58,6 +58,9 @@ const preBtn = () => {
   .audioBox {
     border: 1px solid var(--primary-border-color);
     border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 }
 </style>
