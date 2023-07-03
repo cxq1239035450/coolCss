@@ -17,3 +17,17 @@ html[data-theme='light'] {
     --secondary-color: #666666;
     --link-color: #0070f3;
 }
+@for $i from 1 through 4 {
+  .ml-#{$i*5} {
+    margin-left: #{$i*5}px;
+  }
+  .mr-#{$i*5} {
+    margin-left: #{$i*5}px;
+  }
+  .mx-#{$i*5} {
+    margin-inline: #{$i*5}px;
+  }
+  .my-#{$i*5} {
+    margin-block: #{$i*5}px;
+  }
+}
