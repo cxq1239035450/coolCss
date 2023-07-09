@@ -1,5 +1,6 @@
 <template>
   <div class="fixed">
+    <div class="weatherBox"></div>
     <transition name="fade" mode="out-in">
       <span
         class="cursor iconfont icon-taiyang"
@@ -17,8 +18,9 @@
 
 <script setup lang="ts">
 import { ref } from '@vue/reactivity'
-
+import { getGeolocation } from '@/general/weather'
 const IS_LIGHT = ref<Boolean>(true)
+getGeolocation()
 const changeSty = (): void => {
   let stateName = ''
   IS_LIGHT.value ? (stateName = 'dark') : (stateName = 'light')
@@ -37,6 +39,11 @@ const changeSty = (): void => {
   justify-content: center;
   align-items: center;
   color: var(--primary-color);
+}
+.weatherBox {
+  width: 200px;
+  height: 100px;
+  background: yellow;
 }
 .fade-enter-from {
   opacity: 0;
