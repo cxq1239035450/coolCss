@@ -1,8 +1,6 @@
+export default self
 
 self.onmessage = async(event) => {
-  // var zip = new JSZip()
-
-  console.log('所需下载的list:', event.data);
   self.postMessage({
     type:'down',
     value:'start'
@@ -17,6 +15,7 @@ self.onmessage = async(event) => {
     value:'over'
   });
 };
+
 
 const downFile = (urls:string)=>{
   return new Promise((res,rej)=>{

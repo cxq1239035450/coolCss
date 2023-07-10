@@ -14,7 +14,7 @@
 
 <script  setup lang="ts">
 import { getFileURL } from '@/general/fileDispose'
-import { woker } from '@/general/woker'
+import { createDisposableWorker } from '@/general/woker'
 import { ref, reactive, computed, toRef,watchEffect } from 'vue'
 import { musicObj, musicType } from '@/general/music'
 const props = withDefaults(
@@ -43,22 +43,10 @@ const pauseBtn = ():void  => {
   audioObj.value.pause()
 }
 const preBtn = ():void  => {
-  woker.postMessage([
-    "https://imgout.xmdas-link.com/exam_pdf/dev/2023-05/53310/16345/53310_16345_600.pdf",
-    "https://imgout.xmdas-link.com/exam_pdf/dev/2023-05/53310/16345/53310_16345_600.pdf",
-    "https://imgout.xmdas-link.com/exam_pdf/dev/2023-05/53310/16345/53310_16345_600.pdf",
-    "https://imgout.xmdas-link.com/exam_pdf/dev/2023-05/53310/16345/53310_16345_600.pdf"
-    ]);
-  woker.onmessage = (event) => {
-    if(event.type ==='down'){
+  const a = createDisposableWorker(getFileURL('woker/down.ts'))
+  a.post('aaa').then(res=>{
 
-    } else if(event.type==='progress'){
-      console.log(111);
-    } else {
-
-    }
-    console.log('Message received from worker:', event.data);
-  };
+  })
 }
 
 </script>
