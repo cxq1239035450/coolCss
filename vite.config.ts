@@ -18,7 +18,9 @@ export default ({  }) => {
       },
       extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
-
+    // server: {
+    //   https: true   // 需要开启https服务
+    //  },
   }
   return defineConfig(config)
 }

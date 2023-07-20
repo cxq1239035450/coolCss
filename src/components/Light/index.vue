@@ -13,14 +13,19 @@
         @click="changeSty"
       ></span>
     </transition>
+    <div @click="aaaa">a</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from '@vue/reactivity'
 import { getGeolocation } from '@/general/weather'
+import { aaaa } from "@/api/weather";
 const IS_LIGHT = ref<Boolean>(true)
-getGeolocation()
+const {latitude,longitude} =  getGeolocation()
+console.log(latitude,longitude);
+
+
 const changeSty = (): void => {
   let stateName = ''
   IS_LIGHT.value ? (stateName = 'dark') : (stateName = 'light')
