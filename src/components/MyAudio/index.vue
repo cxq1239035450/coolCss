@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" >
     <canvas ref="canvasDom" id="canvas" style="width: 100%; height: 80%"></canvas>
     <div class="audioBox">
       <span v-if="!audioObj.is_play" class="iconfont icon-bofang" @click="playBtn"></span>
@@ -7,7 +7,7 @@
       <span class="iconfont icon-shangyiji" @click="preBtn"></span>
       <span class="iconfont icon-xiayiji"></span>
       <span class="iconfont icon-yinliang"></span>
-      <span class="iconfont icon-jingyin"></span>
+      <span class="iconfont icon-jingyin" ></span>
     </div>
   </div>
 </template>
