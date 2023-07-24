@@ -62,6 +62,7 @@ const preBtn = ():void  => {
   .audioBox {
     border: 1px solid var(--primary-border-color);
     border-radius: 20px;
+    box-shadow: 0px 2px 6px 0px rgba(136, 136, 136, 45);
     display: flex;
     justify-content: space-around;
     align-items: center;
