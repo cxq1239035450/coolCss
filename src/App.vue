@@ -2,12 +2,14 @@
   <div class="app">
     <Light />
     <MyAudio />
+    <Three />
   </div>
 </template>
 
 <script setup lang="ts">
-import Light from "@/components/Light/index.vue";
-import MyAudio from "@/components/MyAudio/index.vue";
+import Light from '@/components/Light/index.vue'
+import MyAudio from '@/components/MyAudio/index.vue'
+import Three from '@/components/Three/index.vue'
 </script>
 
 <style lang="scss">
