@@ -17,9 +17,6 @@
         @error="imgLoad"
       />
     </div>
-    <div class="refreshBtn icon" @click="refreshBtn">
-      <svg-icon icon-class="refresh" />
-    </div>
   </div>
 </template>
 
