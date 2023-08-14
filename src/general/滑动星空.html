@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        <canvas id="cw">版本不符</canvas>
+    </body>
+    <script>
+        //获取页面大小
+        const page = {
+            x: innerWidth,
+            y: innerHeight
+        };
+        //随机颜色方法
+        function getColor() {
+            const s = "0123456789ABCDEF";
+            let c = "#";
+            for (let i = 0; i < 6; i++) {
+                c += s[Math.ceil(Math.random() * 15)]
+            }
+            return c
+        }
+        const canvasDom = document.getElementById('cw')
+        const ctx = canvasDom.getContext('2d')
+        /** @type {HTMLCanvasElement} */
+        function basisSet(){
+            canvasDom.height = innerHeight;
+            canvasDom.width = innerWidth;
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, innerWidth, innerHeight);
+        }
+        function star(x,y,r,c) {
+            this.x = x
+            this.y = y
+            this.r = r
+            this.color = c
+            this.dr = function() {
+                console.log(this);
+                ctx.beginPath();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = this.color;
+                ctx.arc(this.x,this.y,1,0,2*Math.PI)
+                ctx.stroke();
+                ctx.closePath();
+                ctx.rotate(Math.PI/100000)
+             }
+        }
+        const a = [];
+        function animation(params) {
+            basisSet()
+            for (let index = 0; index < 50; index++) {
+                a[index] = new star(Math.random()*innerWidth,Math.random()*innerHeight,150*Math.random(),getColor())
+            }
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0, 0, page.width, page.height);
+            setInterval(()=>{
+                a.forEach(e=>{
+                    e.dr()
+                })
+            },800)
+        }
+        animation()
+    </script>
+    <style>
+        #cw {
+            position: fixed;
+            z-index: -1;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgba(0,0,0,0.05);
+        }
+    </style>
+</html>

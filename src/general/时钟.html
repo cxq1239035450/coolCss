@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <body>
+            <canvas id="cw" width="800" height="800">版本不符</canvas>
+    
+        </body>
+        <script>
+            /** @type {HTMLCanvasElement} */
+            const canvasDom = document.getElementById('cw')
+            const canvasCtx = canvasDom.getContext('2d')
+            canvasCtx.save()
+            canvasCtx.strokeStyle = 'gray'
+            canvasCtx.beginPath();
+            canvasCtx.translate(400,400)
+            canvasCtx.lineWidth = 10
+            canvasCtx.arc(0,0,300,0,2*Math.PI)
+            canvasCtx.closePath()
+            canvasCtx.stroke()
+            function draw(number,degree,lineWidth,color,start,end) {
+                for (let index = 0; index < number; index++) {
+                    canvasCtx.rotate(degree)
+                    canvasCtx.beginPath();
+                    canvasCtx.lineWidth = lineWidth
+                    canvasCtx.strokeStyle  = color
+                    canvasCtx.moveTo(start,0)
+                    canvasCtx.lineTo(end,0)
+                    canvasCtx.closePath()
+                    canvasCtx.stroke()
+                }
+            }
+            //绘制秒
+            draw(60,Math.PI/30,2,'gray',280,300)
+            //绘制时
+            draw(12,Math.PI/6,5,'gray',260,300)
+
+
+            
+
+
+            //往后旋转90°转到 12点开始计算
+            canvasCtx.rotate(-Math.PI/2)
+
+
+            function drawLine(degree,color,start,end){
+                canvasCtx.save()
+                canvasCtx.beginPath();
+                canvasCtx.rotate(degree)
+                canvasCtx.strokeStyle = color
+                canvasCtx.moveTo(start,0)
+                canvasCtx.lineTo(end,0)
+                canvasCtx.closePath()
+                canvasCtx.stroke()
+                canvasCtx.restore()
+            }
+            //开始绘制时分秒 针
+            setInterval(()=>{
+                //时
+                canvasCtx.clearRect(-200,-200,400,400)
+                const now = new Date()
+                let S = now.getSeconds();
+                let M = now.getMinutes();
+                let H  = now.getHours();
+                H = H>=12 ? H-12 : H;
+
+                //时
+                drawLine(Math.PI*2/12*H +Math.PI*2/12/60*M,'red',-30,80)
+                //分
+                drawLine(Math.PI*2/60*M + Math.PI*2/60/60*S,'black',-40,100)
+                //秒
+                drawLine(Math.PI*2/60*S,'gray',-50,110)
+
+                //原点
+                canvasCtx.beginPath();
+                canvasCtx.strokeStyle = 'gray'
+                canvasCtx.arc(0,0,4,0,2*Math.PI)
+                canvasCtx.closePath()
+                canvasCtx.stroke()
+            },500)
+
+        </script>
+        <style>
+            #cw {
+                position: fixed;
+                z-index: -1;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: rgba(0,0,0,0.05);
+            }
+        </style>
+    </head>
+</html>
