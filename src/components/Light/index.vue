@@ -13,7 +13,6 @@
         @click="changeSty"
       ></span>
     </transition>
-    <div @click="aaaa">a</div>
   </div>
 </template>
 
