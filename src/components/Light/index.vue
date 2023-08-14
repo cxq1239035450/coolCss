@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { ref } from '@vue/reactivity'
 import { getGeolocation } from '@/general/weather'
-import { aaaa } from "@/api/weather";
+// import { aaaa } from "@/api/weather";
 const IS_LIGHT = ref<Boolean>(true)
 const {latitude,longitude} =  getGeolocation()
 console.log(latitude,longitude);

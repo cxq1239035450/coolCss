@@ -44,9 +44,9 @@ const pauseBtn = ():void  => {
 }
 const preBtn = ():void  => {
   const a = createDisposableWorker(getFileURL('woker/down.ts'))
-  a.post('aaa').then(res=>{
+  // a.post('aaa').then(res=>{
 
-  })
+  // })
 }
 
 </script>
