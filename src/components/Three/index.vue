@@ -10,7 +10,7 @@ import { nextTick, ref } from 'vue'
  * 创建场景对象Scene
  */
 var scene = new THREE.Scene()
-const tween = new TWEEN.Tween()
+const tween = new TWEEN.Tween({})
 
 /**
  * 创建网格模型
