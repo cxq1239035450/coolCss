@@ -4,13 +4,17 @@
 
 <script lang="ts" setup>
 import * as THREE from 'three'
+//补间动画库
 import * as TWEEN from '@tweenjs/tween.js'
+// three 补充库
+import * as kokomi from "kokomi.js";
 import { nextTick, ref } from 'vue'
 /**
  * 创建场景对象Scene
  */
 var scene = new THREE.Scene()
 const tween = new TWEEN.Tween({})
+
 //坐标轴设置
 const axesHelper = new THREE.AxesHelper(30)
 scene.add(axesHelper)
